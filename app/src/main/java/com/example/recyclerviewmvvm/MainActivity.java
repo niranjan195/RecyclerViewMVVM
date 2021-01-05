@@ -4,43 +4,52 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.recyclerviewmvvm.adapter.ItemsAdapter;
+import com.example.recyclerviewmvvm.model.Items;
+import com.example.recyclerviewmvvm.viewmodels.MainActivityViewModel;
+
 import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements ItemsAdapter.OnItemClickListener {
 
     private ArrayList<Items> mItems;
     private RecyclerView mRecyclerView;
     private ItemsAdapter mAdapter;
+    private MainActivityViewModel mMainActivityViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        initRecyclerView();
-        initItems();
+        mItems = new ArrayList<Items>();
+        mRecyclerView = (RecyclerView) findViewById(R.id.items_recycler_view);
+        mMainActivityViewModel = new ViewModelProvider(this).get(MainActivityViewModel.class);
 
+        mMainActivityViewModel.init();
+        mMainActivityViewModel.getItems().observe(this, new Observer<List<Items>>() {
+            @Override
+            public void onChanged(List<Items> items) {
+                mAdapter.notifyDataSetChanged();
+            }
+        });
+        initRecyclerView();
     }
 
     private void initRecyclerView() {
-        mRecyclerView = (RecyclerView) findViewById(R.id.items_recycler_view);
+
         mAdapter = new ItemsAdapter(this);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-    }
-
-    private void initItems() {
-        this.mItems = new ArrayList<>();
-        this.mItems.add(new Items(R.drawable.ic_launcher, getResources().getString(R.string.ration)));
-        this.mItems.add(new Items(R.drawable.ic_launcher, getResources().getString(R.string.buy_giftcard)));
-        this.mItems.add(new Items(R.drawable.ic_launcher, getResources().getString(R.string.recharge)));
-        this.mItems.add(new Items(R.drawable.ic_launcher, getResources().getString(R.string.pay_dth_bills)));
-        this.mItems.add(new Items(R.drawable.ic_launcher, getResources().getString(R.string.pay_electricity_bills)));
-        this.mItems.add(new Items(R.drawable.ic_launcher, getResources().getString(R.string.pay_postpaid_bills)));
-        mAdapter.createItems(mItems);
+        // set the items in the Adapter
+        mAdapter.createItems(mMainActivityViewModel.getItems().getValue());
         mRecyclerView.setAdapter(mAdapter);
+
     }
 
     @Override

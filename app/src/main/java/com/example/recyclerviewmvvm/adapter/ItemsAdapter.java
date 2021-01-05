@@ -1,4 +1,4 @@
-package com.example.recyclerviewmvvm;
+package com.example.recyclerviewmvvm.adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,7 +9,11 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.recyclerviewmvvm.R;
+import com.example.recyclerviewmvvm.model.Items;
+
 import java.util.ArrayList;
+import java.util.List;
 
 public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ViewHolder> {
     private ArrayList<Items> mItems;
@@ -19,8 +23,8 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ViewHolder> 
         mOnItemClickListener = onItemClickListener;
     }
 
-    public void createItems(ArrayList<Items> items) {
-        mItems = items;
+    public void createItems(List<Items> items) {
+        mItems = (ArrayList) items;
     }
 
     @NonNull
