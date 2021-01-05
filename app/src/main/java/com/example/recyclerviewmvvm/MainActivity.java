@@ -13,12 +13,10 @@ import com.example.recyclerviewmvvm.adapter.ItemsAdapter;
 import com.example.recyclerviewmvvm.model.Items;
 import com.example.recyclerviewmvvm.viewmodels.MainActivityViewModel;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements ItemsAdapter.OnItemClickListener {
 
-    private ArrayList<Items> mItems;
     private RecyclerView mRecyclerView;
     private ItemsAdapter mAdapter;
     private MainActivityViewModel mMainActivityViewModel;
@@ -27,7 +25,6 @@ public class MainActivity extends AppCompatActivity implements ItemsAdapter.OnIt
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mItems = new ArrayList<Items>();
         mRecyclerView = (RecyclerView) findViewById(R.id.items_recycler_view);
         mMainActivityViewModel = new ViewModelProvider(this).get(MainActivityViewModel.class);
 
@@ -50,11 +47,11 @@ public class MainActivity extends AppCompatActivity implements ItemsAdapter.OnIt
         mAdapter.createItems(mMainActivityViewModel.getItems().getValue());
         mRecyclerView.setAdapter(mAdapter);
 
+//        Toast.makeText(this, "Clicked: " + item.getDescription(), Toast.LENGTH_SHORT).show();
     }
 
     @Override
-    public void onItemClick(int position) {
-        Items item = mItems.get(position);
+    public void onItemClick(Items item) {
         Toast.makeText(this, "Clicked: " + item.getDescription(), Toast.LENGTH_SHORT).show();
     }
 }

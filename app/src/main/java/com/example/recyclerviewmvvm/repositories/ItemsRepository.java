@@ -15,7 +15,8 @@ public class ItemsRepository {
     private static ItemsRepository instance;
     private ArrayList<Items> mItems = new ArrayList<>();
 
-    private ItemsRepository() {}
+    private ItemsRepository() {
+    }
 
     public static ItemsRepository getInstance() {
         if (instance == null) instance = new ItemsRepository();

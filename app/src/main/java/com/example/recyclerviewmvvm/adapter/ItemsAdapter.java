@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ViewHolder> {
-    private ArrayList<Items> mItems;
+    private static ArrayList<Items> mItems;
     private OnItemClickListener mOnItemClickListener;
 
     public ItemsAdapter(OnItemClickListener onItemClickListener) {
@@ -49,7 +49,7 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ViewHolder> 
     }
 
     public interface OnItemClickListener {
-        void onItemClick(int position);
+        void onItemClick(Items item);
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -67,7 +67,7 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ViewHolder> 
 
         @Override
         public void onClick(View v) {
-            mOnItemClickListener.onItemClick(getAdapterPosition());
+            mOnItemClickListener.onItemClick(mItems.get(getAdapterPosition()));
         }
     }
 
