@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">RecyclerView</string>
+    <string name="ration">Ration</string>
+    <string name="recharge">Recharge</string>
+    <string name="buy_giftcard">Buy a giftcard</string>
+    <string name="pay_electricity_bills"> Pay electricity bills</string>
+    <string name="pay_postpaid_bills">Pay postpaid bills </string>
+    <string name="pay_dth_bills">pay DTH bills</string>
+</resources>
